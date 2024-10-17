@@ -1,0 +1,89 @@
+{% extends 'modelo.html' %}
+{% block conteudo %}
+<nav id="menu">
+    <h2>Área administrativa - ADM</h2>
+    <a href="/logout"><button class="button">Sair</button></a>
+</nav>
+
+<div class="container" id="adm">
+    <div class="col-12 col-md-6" id="adm-users">
+        <div class="row py-3 my-3 d-flex aling-itens-center justify-content-center">
+            <div class="col-12 col-md-7">
+                <h2>Lista de usuários do Blog</h2>
+            </div>
+            <div class="col-12 col-md-5">
+                <a href="/novousuario">
+                    <button class="bt_novousuario mt-1">NovoUsuário</button>
+                </a>
+            </div>
+        </div>
+        <table class="table table-striped text-center">
+            <thead>
+                <tr>
+                    <th scope="col">NOME</th>
+                    <th scope="col">E-MAIL</th>
+                    <th scope="col">OPÇÔES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if not lista_usuarios %}
+                <tr>
+                    <td colspan="3">Não há usuários cadastrados!</td>
+                </tr>
+                {% else %}
+                {% for usuario in lista_usuarios %}
+                <tr>
+                    <td>{{ usuario[1] }}</td>
+                    <td>{{ usuario[2] }}</td>
+                    <td class="d-flex justify-content-around aling-itens-center border-0 ">
+                        <a href="/editar-user/{{ usuario[0] }}"><i class="bi bi-pencil-square "></i></a>
+                        <a href="/excluir-user/{{ usuario[0] }}" onclick="return 
+                        confirm('Tem certeza que deseja excluir este usuário?')"><i class="bi bi-trash-fill"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+    <div class="col-12 col-md-6" id="adm-posts">
+        <div class="row py-3 my-3 d-flex aling-itens-center justify-content-center ">
+
+            <h2>Moderação dos Posts</h2>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">USUÁRIO</th>
+                    <th scope="col">POST</th>
+                    <th scope="col">DATA</th>
+                    <th scope="col">AÇÃO</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if not lista_usuarios %}
+                <tr>
+                    <td colspan="4">Não há postagens no blog!</td>
+                </tr>
+                {% else %}
+                {% for post in lista_posts %}
+                <tr>
+                    <td>{{ post[4] }}</td>
+                    <td class="text-truncate"  style="max-width: 150px;">{{ post[2] }}</td>
+                    <td>{{ post[3] }}</td>
+                    <td class="d-flex justify-content-center aling-itens-center border-0 ">
+                        <a href="/excluir-post/{{ post[0] }}" onclick="return 
+                        confirm('Tem certeza que deseja excluir este post?');"><i class="bi bi-trash-fill"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+                {% endif %}
+            </tbody>
+        </table>
+
+
+    </div>
+</div>
+
+
+{% endblock %}

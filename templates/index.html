@@ -1,0 +1,58 @@
+{% extends 'modelo.html' %}
+{% block conteudo %}
+
+<nav id="menu">
+    {% if login %}
+    <div class="container-fluid d-flex justify-content-center my-5">
+        <a href="/novopost"><button type="button" class="btn btn-primary mt-4 me-2">Novo Post</button></a>
+        <a href="/logout"><button class="btn btn-primary mt-4 me-2" type="button">Sair</button></a>
+    </div>
+
+    {% else %}
+    <a href="/login"><button type="button" id="loguinbotao">Faça login</button></a>
+    {% endif %}
+
+</nav>
+
+
+<div id="home">
+
+    {% if not posts %}
+    <h2>Não há posts </h2>
+    {% else %}
+    <div class="container mt-3">
+        <div class="row g-4">
+            {% for post in posts %}
+            <div class="col-sm-6 col-xl-3 mb-3 ">
+                <div class="card text-bg-light g-3" style="max-width: 18rem;">
+                    <div class="">
+                        
+                            <img src="static/img/bannerperson.png" alt="" class="w-100 ">
+                        
+                    </div>
+                    <div class="card-body"> 
+                        <div>
+                            <p>{{post.conteudo}}</p>
+                            <p>{{ post.autor }} <br> {{ post.data }}</p>
+                            {% if id_usuario == post.id_usuario %}
+                                <p class="post-apagar">
+                                    <a href="/excluir-post/{{post.id_post}}" onclick="return confirm('Tem certeza que deseja excluir este post?');">Apagar</a>
+                                </p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+
+</div>
+<script>
+    setInterval(function () {
+        location.reload()
+    }, 10000);
+</script>
+
+{% endblock %}
