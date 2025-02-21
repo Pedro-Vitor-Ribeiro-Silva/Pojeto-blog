@@ -14,7 +14,7 @@ Um sistema de blog simples desenvolvido com Flask e MySQL.
 
 ### 1. Clone o Repositório
 ```bash
-git clone https://github.com/seuusuario/meu-blog.git
+git clone https://github.com/seuusuario/Projeto-blog.git
 cd meu-blog
 ```
 
